@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/answer.dart';
 import 'package:flutter_complete_guide/question.dart';
@@ -37,18 +35,20 @@ class _MyAppState extends State<MyApp> {
     //   'What is your favourite language?',
     //   'What is your favourite country?'
     // ];
+
+    /// Map, question variable is a list of map
     var questions = [
       {
         'questionText': 'What\'s your favourite color?',
         'answer': ['Black', 'Blue', 'Green', 'Sky']
       },
       {
-        'questionText': 'What\'s your favourite animal?',
+        'questionText': 'What\'s your favorite animal?',
         'answer': ['Cat', 'Tiger', 'Lion', 'Bull']
       },
       {
         'questionText': 'What\'s your favourite language?',
-        'answer': ['Tamil', 'Bengali', 'English', 'Arabic']
+        'answer': ['Tamil', 'Bengali', 'English']
       },
       {
         'questionText': 'What\'s your favourite country?',
@@ -65,10 +65,15 @@ class _MyAppState extends State<MyApp> {
           // Answer(selectHandler: _answerOfQuestion),
           // Answer(selectHandler: _answerOfQuestion),
           // Answer(selectHandler: _answerOfQuestion),
+          /// ... is a Spread Operator
+          ///  It can be used to extend the elements of a Collection.
+          ///  In Dart, Spread Operator (...) and Null-aware Spread Operator (...?)
+          ///  are used for inserting multiple elements in a collection like
+          ///  Lists, Maps, set
           ...(questions[_questionIndex]['answer'] as List<String>)
               .map((answer) {
             return Answer(selectHandler: _answerOfQuestion, answerText: answer);
-          })
+          }).toList(),
 
           // ElevatedButton(
           //     onPressed: _answerOfQuestion,
