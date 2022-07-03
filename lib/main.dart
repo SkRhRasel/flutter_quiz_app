@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     // ];
 
     /// Map, question variable is a list of map
-    var questions = [
+    const questions = [
       {
         'questionText': 'What\'s your favourite color?',
         'answer': ['Black', 'Blue', 'Green', 'Sky']
@@ -55,6 +55,13 @@ class _MyAppState extends State<MyApp> {
         'answer': ['USA', 'UK', 'Bangladesh', 'Paris']
       }
     ];
+
+/*    var dummy = ['cat'];
+    dummy.add('dog');
+    print(dummy);
+    log(dummy.last);
+    dummy =[];
+    print(dummy);*/
 
     return MaterialApp(
       home: Scaffold(
