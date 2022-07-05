@@ -19,12 +19,38 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
 
+  /// Map, question variable is a list of map
+  final questions = const [
+    {
+      'questionText': 'What\'s your favourite color?',
+      'answer': ['Black', 'Blue', 'Green', 'Sky']
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answer': ['Cat', 'Tiger', 'Lion', 'Bull']
+    },
+    {
+      'questionText': 'What\'s your favourite language?',
+      'answer': ['Tamil', 'Bengali', 'English']
+    },
+    {
+      'questionText': 'What\'s your favourite country?',
+      'answer': ['USA', 'UK', 'Bangladesh', 'Paris']
+    }
+  ];
+
   void _answerOfQuestion() {
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
     log('questionIndex: $_questionIndex');
     // print('Answer Chosen!');
+
+    if (_questionIndex < questions.length) {
+      log('We have more questions!');
+    } else {
+      log('No more questions!');
+    }
   }
 
   @override
@@ -36,26 +62,6 @@ class _MyAppState extends State<MyApp> {
     //   'What is your favourite country?'
     // ];
 
-    /// Map, question variable is a list of map
-    const questions = [
-      {
-        'questionText': 'What\'s your favourite color?',
-        'answer': ['Black', 'Blue', 'Green', 'Sky']
-      },
-      {
-        'questionText': 'What\'s your favorite animal?',
-        'answer': ['Cat', 'Tiger', 'Lion', 'Bull']
-      },
-      {
-        'questionText': 'What\'s your favourite language?',
-        'answer': ['Tamil', 'Bengali', 'English']
-      },
-      {
-        'questionText': 'What\'s your favourite country?',
-        'answer': ['USA', 'UK', 'Bangladesh', 'Paris']
-      }
-    ];
-
 /*    var dummy = ['cat'];
     dummy.add('dog');
     print(dummy);
@@ -66,41 +72,46 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('AppBar')),
-        body: Column(children: [
-          // Text(questions[_questionIndex]),
-          Question(questions[_questionIndex]['questionText'] as String),
-          // Answer(selectHandler: _answerOfQuestion),
-          // Answer(selectHandler: _answerOfQuestion),
-          // Answer(selectHandler: _answerOfQuestion),
-          /// ... is a Spread Operator
-          ///  It can be used to extend the elements of a Collection.
-          ///  In Dart, Spread Operator (...) and Null-aware Spread Operator (...?)
-          ///  are used for inserting multiple elements in a collection like
-          ///  Lists, Maps, set
-          ...(questions[_questionIndex]['answer'] as List<String>)
-              .map((answer) {
-            return Answer(selectHandler: _answerOfQuestion, answerText: answer);
-          }).toList(),
+        body: _questionIndex < questions.length
+            ? Column(children: [
+                // Text(questions[_questionIndex]),
+                Question(questions[_questionIndex]['questionText'] as String),
+                // Answer(selectHandler: _answerOfQuestion),
+                // Answer(selectHandler: _answerOfQuestion),
+                // Answer(selectHandler: _answerOfQuestion),
+                /// ... is a Spread Operator
+                ///  It can be used to extend the elements of a Collection.
+                ///  In Dart, Spread Operator (...) and Null-aware Spread Operator (...?)
+                ///  are used for inserting multiple elements in a collection like
+                ///  Lists, Maps, set
+                ...(questions[_questionIndex]['answer'] as List<String>)
+                    .map((answer) {
+                  return Answer(
+                      selectHandler: _answerOfQuestion, answerText: answer);
+                }).toList(),
 
-          // ElevatedButton(
-          //     onPressed: _answerOfQuestion,
-          //     style: ElevatedButton.styleFrom(primary: Colors.red),
-          //     child: const Text('Answer 1')),
-          // ElevatedButton(
-          //     onPressed: _answerOfQuestion,
-          //     // onPressed: () => answerOfQuestion, //print(' Answer 2 chosen!'),//print(' Answer 2 chosen!'),
-          //     style: ElevatedButton.styleFrom(primary: Colors.red),
-          //     child: const Text('Answer 2')),
-          // ElevatedButton(
-          //     onPressed: _answerOfQuestion,
-          //     // onPressed: () {
-          //     //   answerOfQuestion;
-          //     //   //....
-          //     //   // print(' Answer 3 chosen!');
-          //     // },
-          //     style: ElevatedButton.styleFrom(primary: Colors.red),
-          //     child: const Text('Answer 3')),
-        ]),
+                // ElevatedButton(
+                //     onPressed: _answerOfQuestion,
+                //     style: ElevatedButton.styleFrom(primary: Colors.red),
+                //     child: const Text('Answer 1')),
+                // ElevatedButton(
+                //     onPressed: _answerOfQuestion,
+                //     // onPressed: () => answerOfQuestion, //print(' Answer 2 chosen!'),//print(' Answer 2 chosen!'),
+                //     style: ElevatedButton.styleFrom(primary: Colors.red),
+                //     child: const Text('Answer 2')),
+                // ElevatedButton(
+                //     onPressed: _answerOfQuestion,
+                //     // onPressed: () {
+                //     //   answerOfQuestion;
+                //     //   //....
+                //     //   // print(' Answer 3 chosen!');
+                //     // },
+                //     style: ElevatedButton.styleFrom(primary: Colors.red),
+                //     child: const Text('Answer 3')),
+              ])
+            : const Center(
+                child: Text("You did it!"),
+              ),
       ),
     );
   }
