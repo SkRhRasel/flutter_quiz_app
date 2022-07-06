@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/answer.dart';
 import 'package:flutter_complete_guide/question.dart';
+import 'package:flutter_complete_guide/quiz.dart';
+import 'package:flutter_complete_guide/result.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -17,36 +19,61 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var _questionIndex = 0;
 
   /// Map, question variable is a list of map
-  final questions = const [
+  final _questions = const [
     {
       'questionText': 'What\'s your favourite color?',
-      'answer': ['Black', 'Blue', 'Green', 'Sky']
+      'answer': [
+        {'text': 'Black', 'score': 2},
+        {'text': 'Red', 'score': 4},
+        {'text': 'Sky Blue', 'score': 10},
+        {'text': 'Gray', 'score': 6}
+      ]
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answer': ['Cat', 'Tiger', 'Lion', 'Bull']
+      // 'answer': ['Cat', 'Tiger', 'Lion', 'Bull']
+      'answer': [
+        {'text': 'Cat', 'score': 10},
+        {'text': 'Tiger', 'score': 6},
+        {'text': 'Lion', 'score': 8},
+        {'text': 'Bull', 'score': 4}
+      ]
     },
     {
       'questionText': 'What\'s your favourite language?',
-      'answer': ['Tamil', 'Bengali', 'English']
+      'answer': [
+        {'text': 'English', 'score': 8},
+        {'text': 'Bengali', 'score': 10},
+        {'text': 'Hindi', 'score': 6}
+      ]
     },
     {
       'questionText': 'What\'s your favourite country?',
-      'answer': ['USA', 'UK', 'Bangladesh', 'Paris']
+      'answer': [
+        {'text': 'USA', 'score': 10},
+        {'text': 'UK', 'score': 6},
+        {'text': 'Bangladesh', 'score': 8},
+        {'text': 'Paris', 'score': 4}]
     }
   ];
 
-  void _answerOfQuestion() {
+
+  var _questionIndex = 0;
+  var _totalScore = 0;
+
+  void _answerOfQuestion(int score) {
+
+    _totalScore += score;  /// _totalScore = _totalScore + score!;
+
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
     log('questionIndex: $_questionIndex');
     // print('Answer Chosen!');
 
-    if (_questionIndex < questions.length) {
+    if (_questionIndex < _questions.length) {
       log('We have more questions!');
     } else {
       log('No more questions!');
@@ -72,46 +99,13 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('AppBar')),
-        body: _questionIndex < questions.length
-            ? Column(children: [
-                // Text(questions[_questionIndex]),
-                Question(questions[_questionIndex]['questionText'] as String),
-                // Answer(selectHandler: _answerOfQuestion),
-                // Answer(selectHandler: _answerOfQuestion),
-                // Answer(selectHandler: _answerOfQuestion),
-                /// ... is a Spread Operator
-                ///  It can be used to extend the elements of a Collection.
-                ///  In Dart, Spread Operator (...) and Null-aware Spread Operator (...?)
-                ///  are used for inserting multiple elements in a collection like
-                ///  Lists, Maps, set
-                ...(questions[_questionIndex]['answer'] as List<String>)
-                    .map((answer) {
-                  return Answer(
-                      selectHandler: _answerOfQuestion, answerText: answer);
-                }).toList(),
-
-                // ElevatedButton(
-                //     onPressed: _answerOfQuestion,
-                //     style: ElevatedButton.styleFrom(primary: Colors.red),
-                //     child: const Text('Answer 1')),
-                // ElevatedButton(
-                //     onPressed: _answerOfQuestion,
-                //     // onPressed: () => answerOfQuestion, //print(' Answer 2 chosen!'),//print(' Answer 2 chosen!'),
-                //     style: ElevatedButton.styleFrom(primary: Colors.red),
-                //     child: const Text('Answer 2')),
-                // ElevatedButton(
-                //     onPressed: _answerOfQuestion,
-                //     // onPressed: () {
-                //     //   answerOfQuestion;
-                //     //   //....
-                //     //   // print(' Answer 3 chosen!');
-                //     // },
-                //     style: ElevatedButton.styleFrom(primary: Colors.red),
-                //     child: const Text('Answer 3')),
-              ])
-            : const Center(
-                child: Text("You did it!"),
-              ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                questionIndex: _questionIndex,
+                answerOfQuestion: _answerOfQuestion(),
+                questions: _questions,
+              )
+            : const Result(),
       ),
     );
   }
