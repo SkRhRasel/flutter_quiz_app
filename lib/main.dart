@@ -63,9 +63,9 @@ class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
   var _totalScore = 0;
 
-  void _answerOfQuestion(int score) {
+  void _answerOfQuestion(int? score) {
 
-    _totalScore += score;  /// _totalScore = _totalScore + score!;
+    _totalScore += score!;  /// _totalScore = _totalScore + score!;
 
     setState(() {
       _questionIndex = _questionIndex + 1;
@@ -82,19 +82,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // var questions = [
-    //   'What is your favourite color?',
-    //   'What is your favourite animal?',
-    //   'What is your favourite language?',
-    //   'What is your favourite country?'
-    // ];
-
-/*    var dummy = ['cat'];
-    dummy.add('dog');
-    print(dummy);
-    log(dummy.last);
-    dummy =[];
-    print(dummy);*/
 
     return MaterialApp(
       home: Scaffold(
@@ -102,10 +89,10 @@ class _MyAppState extends State<MyApp> {
         body: _questionIndex < _questions.length
             ? Quiz(
                 questionIndex: _questionIndex,
-                answerOfQuestion: _answerOfQuestion(),
+                answerOfQuestion: _answerOfQuestion,
                 questions: _questions,
               )
-            : const Result(),
+            : Result(_totalScore),
       ),
     );
   }
