@@ -1,7 +1,6 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/answer.dart';
-import 'package:flutter_complete_guide/question.dart';
 import 'package:flutter_complete_guide/quiz.dart';
 import 'package:flutter_complete_guide/result.dart';
 

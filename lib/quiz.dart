@@ -25,8 +25,7 @@ class Quiz extends StatelessWidget {
       ///  are used for inserting multiple elements in a collection like
       ///  Lists, Maps, set
       // ...(questions![questionIndex!]['answer'] as List<String>).map((answer) {
-      ...(questions![questionIndex!]['answer'] as List<Map<String, Object>>)
-          .map((answer) {
+      ...(questions![questionIndex!]['answer'] as List<Map<String, Object>>).map((answer) {
         return Answer(
             selectHandler: () => answerOfQuestion!(answer['score']), // () => is a anonymous function
             answerText: answer['text'] as String);
