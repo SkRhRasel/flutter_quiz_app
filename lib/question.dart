@@ -4,7 +4,7 @@ class Question extends StatelessWidget {
   final String? questionText;
 
   // Question(this.questionText, {Key? key});
-  const Quesq1tion(this.questionText, {Key? key}) : super(key: key);
+  const Question(this.questionText, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
