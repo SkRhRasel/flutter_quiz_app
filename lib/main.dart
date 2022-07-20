@@ -18,7 +18,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   /// Map, question variable is a list of map
   final _questions = const [
     {
@@ -54,17 +53,25 @@ class _MyAppState extends State<MyApp> {
         {'text': 'USA', 'score': 10},
         {'text': 'UK', 'score': 6},
         {'text': 'Bangladesh', 'score': 8},
-        {'text': 'Paris', 'score': 4}]
+        {'text': 'Paris', 'score': 4}
+      ]
     }
   ];
-
 
   var _questionIndex = 0;
   var _totalScore = 0;
 
-  void _answerOfQuestion(int score) {
+  void _resetQuiz() {
+    setState(() {
+      var _questionIndex = 0;
+      var _totalScore = 0;
+    });
+  }
 
-    _totalScore += score;  /// _totalScore = _totalScore + score!;
+  void _answerOfQuestion(int? score) {
+    _totalScore += score!;
+
+    /// _totalScore = _totalScore + score!;
 
     setState(() {
       _questionIndex = _questionIndex + 1;
@@ -81,19 +88,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('AppBar')),
         body: _questionIndex < _questions.length
             ? Quiz(
-                questionIndex: _questionIndex,
-                answerOfQuestion: _answerOfQuestion,
                 questions: _questions,
-              )
-            : Result(_totalScore),
+                questionIndex: _questionIndex,
+                answerOfQuestion: _answerOfQuestion)
+            : Result(resultScore: _totalScore, resetHandler: _resetQuiz),
+        // without parenthesis means pointing the method to call them
       ),
     );
-
   }
 }
