@@ -4,20 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/quiz.dart';
 import 'package:flutter_complete_guide/result.dart';
 
-// void main() {
-//   runApp(MyApp());
-// }
+void main() {
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return const Material();
+  };
+  runApp(const MyApp());
+}
 
-void main() => runApp(const MyApp());
+// void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+
+
   /// Map, question variable is a list of map
   final _questions = const [
     {
@@ -100,5 +107,11 @@ class _MyAppState extends State<MyApp> {
         // without parenthesis means pointing the method to call them
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    throw('This is an Error');
   }
 }
