@@ -4,7 +4,8 @@ class Answer extends StatelessWidget {
   final VoidCallback? selectHandler;
   final String? answerText;
 
-  Answer({this.selectHandler, this.answerText});
+  Answer(this.selectHandler, this.answerText);
+  // Answer({this.selectHandler, this.answerText});
   // const Answer({Key? key, this.selectHandler, this.answerText}) : super(key: key);
 
   @override

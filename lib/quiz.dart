@@ -12,9 +12,9 @@ class Quiz extends StatelessWidget {
 
   const Quiz(
       {Key? key,
-      required this.questionIndex,
-      required this.questions,
-      required this.answerOfQuestion})
+      @required this.questionIndex,
+      @required this.questions,
+      @required this.answerOfQuestion})
       : super(key: key);
 
   @override
@@ -30,10 +30,12 @@ class Quiz extends StatelessWidget {
       // ...(questions![questionIndex!]['answer'] as List<String>).map((answer) {
       ...(questions![questionIndex!]['answer'] as List<Map<String, Object>>)
           .map((answer) {
-        return Answer(
+        return Answer(() => answerOfQuestion(answer['score']as String), answer['text'] as String);
+/*        return Answer(
             selectHandler: () => answerOfQuestion!(answer['score']),
+            // selectHandler: () => answerOfQuestion!(),
             // () => is a anonymous function
-            answerText: answer['text'] as String);
+            answerText: answer['text'] as String);*/
       }).toList(),
     ]);
   }
